@@ -47,6 +47,46 @@ public class ABR {
 			}
 			else {}
 		}	
+		
+		public boolean contient(int valeur) {
+			if(this.value<valeur){
+				if(this.child_right==null){
+					return(false);
+				}
+				else {
+					return(this.child_right.contient(valeur));
+				}
+			}
+			else if(this.value>valeur){
+				if(this.child_left==null){
+					return(false);
+				}
+				else {
+					return(this.child_left.contient(valeur));
+				}
+			}
+			else {
+				return(true);
+			}
+		}
+		
+		public void ajout(java.util.List<java.lang.Integer> l) { //NonTerminé
+			if(this.child_left!=null) {
+				if(this.child_left.child_left!=null) {
+					this.child_left.ajout(l);
+				}
+				else {
+					l.add(this.child_left.value);
+					l.add(this.value);
+					if (this.child_right!=null){
+						this.child_right.ajout(l);
+					}
+					else {
+						//NonTerminé
+					}
+				}
+			}
+		}
 	}
 	
 	private Node root;
@@ -80,6 +120,22 @@ public class ABR {
 	
 	public int nbElements() {
 		return(this.nb);
+	}
+	
+	public boolean contains(int value){
+		if(this.isEmpty()){
+			return(false);
+		}
+		else {
+			return(this.root.contient(value));
+		}
+	}
+	
+	public void toList(java.util.List<java.lang.Integer> l){
+		if(this.isEmpty()) {}
+		else {
+			this.root.ajout(l);
+		}
 	}
 }
 
